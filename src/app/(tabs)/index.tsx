@@ -1,10 +1,11 @@
-import {ActivityIndicator, Image, ScrollView, Text, View} from "react-native";
+import {ActivityIndicator, FlatList, Image, ScrollView, Text, View} from "react-native";
 import {images} from "../../../constants/images";
 import {icons} from "../../../constants/icons";
 import SearchBar from "@/components/SearchBar";
 import {useRouter} from "expo-router";
 import useFetch from "@/services/useFetch";
 import {fetchMovies} from "@/services/api";
+import MovieCard from "@/components/MovieCard";
 
 export default function Index() {
     const router = useRouter();
@@ -45,7 +46,26 @@ export default function Index() {
                                 />
 
                                 <>
-                                    <Text className="text-lg text-white font-bold mt-5 mb-3">Lastes Movies</Text>
+                                    <Text className="text-lg text-white font-bold  mt-5 mb-3">Lastes Movies</Text>
+                                    <FlatList
+                                        data={movies}
+                                        renderItem={({item}) => (
+                                            <MovieCard
+                                                {...item}
+                                            />
+
+                                        )}
+                                        keyExtractor={(item, index) => index.toString()}
+                                        numColumns={3}
+                                        columnWrapperStyle={{
+                                            justifyContent: 'flex-start',
+                                            gap: 20,
+                                            paddingRight: 5,
+                                            marginBottom: 10
+                                        }}
+                                        className="mt-2 pb-32"
+                                        scrollEnabled={false}
+                                    />
                                 </>
                             </View>
                         )
